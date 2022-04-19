@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Test
 
 on:
   push:
@@ -28,4 +28,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: rhodinemma/testing:latest
+          tags: rhodinemma/reacting:latest
