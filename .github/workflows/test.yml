@@ -21,7 +21,8 @@ jobs:
       uses: docker/build-push-action@v2
       with:
           context: ./
-          push: rhodinemma/reacting
+          images: rhodinemma/reacting
+          push: true
 
     # name: Build the Docker image
     #  run: docker build -f Dockerfile -t rhodinemma/reacting .
