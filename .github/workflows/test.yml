@@ -17,13 +17,12 @@ jobs:
       with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    - name: Build and push
-      uses: docker/build-push-action@v2
-      with:
-          push: true
-          tags: rhodinemma/testing:latest
-
-    # name: Build the Docker image
-    #  run: docker build -f Dockerfile -t rhodinemma/reacting .
-    # name: Docker Push
-    #  run: docker push rhodinemma/reacting:latest
+    # name: Build and push
+    #  uses: docker/build-push-action@v2
+    #  with:
+    #      push: true
+    #      tags: rhodinemma/testing:latest
+    - name: Build the Docker image
+      run: docker build -f Dockerfile -t rhodinemma/reacting .
+    - name: Docker Push
+      run: docker push rhodinemma/reacting:latest
