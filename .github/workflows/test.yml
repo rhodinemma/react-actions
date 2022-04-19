@@ -1,0 +1,27 @@
+name: test 
+on:
+  push:
+    branches: [ master ] # When pushing to master branch then run this action
+
+# Env variable
+env:
+  DOCKER_USER: ${{secrets.DOCKERHUB_USERNAME}}
+  DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+  REPO_NAME: ${{secrets.REPO_NAME}}
+
+jobs:
+  build:
+    push-image-to-docker-hub:  # job name
+      runs-on: ubuntu-latest  # runner name : (ubuntu latest version) 
+      steps:
+      - uses: actions/checkout@v2 # first action : checkout source code
+      - name: docker login
+        run: | # log into docker hub account
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD  
+      - name: Get current date # get the date of the build
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
+      - name: Build the Docker image # push The image to the docker hub
+        run: docker build . --file Dockerfile --tag $DOCKERHUB_USERNAME/$REPO_NAME:${{ steps.date.outputs.date }}
+      - name: Docker Push
+        run: docker push $DOCKERHUB_USER/$REPO_NAME:${{ steps.date.outputs.date }}
