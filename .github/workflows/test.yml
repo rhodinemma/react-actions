@@ -29,6 +29,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Build the Docker image # push The image to the docker hub
-      run: docker build . --file Dockerfile --tag $DOCKERHUB_USER/$REPO_NAME:latest
+      run: docker build . --file Dockerfile -t $DOCKERHUB_USER/$REPO_NAME
     - name: Docker Push
       run: docker push $DOCKERHUB_USER/$REPO_NAME:latest
