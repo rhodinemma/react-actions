@@ -1,17 +1,14 @@
-# use an official node runtime as the base image
 FROM node:10.16.0-alpine
 
-# set the (container) working directory
 WORKDIR /app
 
-# copy current (local) directory contents into the container
-COPY . /app
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-# install dependencies
+ADD . .
+
 RUN npm install
 
-# make port available to the world outside this container
-EXPOSE 3000
+ENTRYPOINT ["/entrypoint.sh"]
 
-# run when the container launches
-CMD ["npm", "run dev"]
+CMD ["npm", "run", "dev"]
