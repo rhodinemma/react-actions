@@ -31,7 +31,7 @@ jobs:
     - name: Run image built
       uses: docker/build-push-action@v2
       with:
-          tags: ${{ secrets.REPO_NAME }}:${{ steps.prepare.outputs.tag }}
+          tags: ${{ steps.prepare.outputs.tag }}
           push: false
     - uses: addnab/docker-run-action@v3
       with:
