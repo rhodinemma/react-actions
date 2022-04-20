@@ -37,8 +37,3 @@ jobs:
       with:
           image: rhodinemma/reacting:master
           run: echo "Hello Rhodin"
-
-    # name: Build the Docker image
-    #  run: docker build -f Dockerfile -t rhodinemma/reacting .
-    # name: Docker Push
-    #  run: docker push rhodinemma/reacting:latest
