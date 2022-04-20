@@ -37,34 +37,34 @@ jobs:
         docker_image: ${{ secrets.REPO_NAME }}
 
   job_4:
-    - name: Build and push
-      needs: job_3
-      runs-on: ubuntu-latest
-      steps:
-      - name: Build and push docker image
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: ${{ steps.outputs.tag }}
+    name: Build and push
+    needs: job_3
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build and push docker image
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: ${{ steps.outputs.tag }}
     
   job_5: 
+    name: Run build image
+    needs: job_4
+    runs-on: ubuntu-latest
+    steps:
     - name: Run build image
-      needs: job_4
-      runs-on: ubuntu-latest
-      steps:
-      - name: Run build image
-        uses: docker/build-push-action@v2
-        with:
-          tags: rhodinemma/reacting:master
-          push: false
+      uses: docker/build-push-action@v2
+      with:
+        tags: rhodinemma/reacting:master
+        push: false
       
   job_6:
+    name: Verify run
+    needs: job_5
+    runs-on: ubuntu-latest
+    steps:
     - name: Verify run
-      needs: job_5
-      runs-on: ubuntu-latest
-      steps:
-      - name: Verify run
-        uses: addnab/docker-run-action@v3
-        with:
-          image: rhodinemma/reacting:master
-          run: echo "Container runs successfully"
+      uses: addnab/docker-run-action@v3
+      with:
+        image: rhodinemma/reacting:master
+        run: echo "Container runs successfully"
