@@ -26,30 +26,23 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   job_3:
-    name: Get smart tag
+    name: Build and push
     needs: job_2
     runs-on: ubuntu-latest
     steps:
-    - name: Getting smart tag
+    - name: Build and push docker image
       id: prepare
       uses: Surgo/docker-smart-tag-action@v1
       with:
         docker_image: ${{ secrets.REPO_NAME }}
-
-  job_4:
-    name: Build and push
-    needs: job_3
-    runs-on: ubuntu-latest
-    steps:
-    - name: Build and push docker image
       uses: docker/build-push-action@v2
       with:
         push: true
         tags: ${{ steps.outputs.tag }}
     
-  job_5: 
+  job_4: 
     name: Run build image
-    needs: job_4
+    needs: job_3
     runs-on: ubuntu-latest
     steps:
     - name: Run build image
@@ -58,9 +51,9 @@ jobs:
         tags: rhodinemma/reacting:master
         push: false
       
-  job_6:
+  job_5:
     name: Verify run
-    needs: job_5
+    needs: job_4
     runs-on: ubuntu-latest
     steps:
     - name: Verify run
