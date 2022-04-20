@@ -35,6 +35,7 @@ jobs:
       uses: Surgo/docker-smart-tag-action@v1
       with:
         docker_image: ${{ secrets.REPO_NAME }}
+    - name: Add tag
       uses: docker/build-push-action@v2
       with:
         push: true
