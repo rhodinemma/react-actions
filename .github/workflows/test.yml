@@ -35,5 +35,5 @@ jobs:
           push: false
     - uses: addnab/docker-run-action@v3
       with:
-          image: ${{ secrets.REPO_NAME }}:master
-          run: echo "Container runs successfully"
+          image: ${{ secrets.REPO_NAME }}:${{ steps.prepare.outputs.tag }}
+          run: echo "Container running successfully"
