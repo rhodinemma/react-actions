@@ -35,5 +35,5 @@ jobs:
           push: false
     - uses: addnab/docker-run-action@v3
       with:
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.CONTAINER_NAME }}:${{ steps.prepare.outputs.tag }}
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.CONTAINER_NAME }}
           run: echo "Container running successfully"
