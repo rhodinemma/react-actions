@@ -15,7 +15,7 @@ jobs:
       uses: docker/setup-buildx-action@v1
 
   job_2:
-    name: Connect to Docker
+    name: Build and push to Docker
     needs: job_1
     runs-on: ubuntu-latest
     steps:
@@ -24,12 +24,6 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-  job_3:
-    name: Build and push
-    needs: job_2
-    runs-on: ubuntu-latest
-    steps:
     - name: Get smart tag
       id: prepare
       uses: Surgo/docker-smart-tag-action@v1
