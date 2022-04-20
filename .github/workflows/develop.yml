@@ -30,35 +30,14 @@ jobs:
     needs: job_2
     runs-on: ubuntu-latest
     steps:
-    - name: Build and push docker image
+    - name: Get smart tag
       id: prepare
       uses: Surgo/docker-smart-tag-action@v1
       with:
         docker_image: ${{ secrets.REPO_NAME }}
-    - name: Add tag
+    - name: Build and push
       uses: docker/build-push-action@v2
       with:
-        push: true
-        tags: ${{ steps.outputs.tag }}
+          push: true
+          tags: ${{ steps.prepare.outputs.tag }}
     
-  job_4: 
-    name: Run build image
-    needs: job_3
-    runs-on: ubuntu-latest
-    steps:
-    - name: Run build image
-      uses: docker/build-push-action@v2
-      with:
-        tags: rhodinemma/reacting:master
-        push: false
-      
-  job_5:
-    name: Verify run
-    needs: job_4
-    runs-on: ubuntu-latest
-    steps:
-    - name: Verify run
-      uses: addnab/docker-run-action@v3
-      with:
-        image: rhodinemma/reacting:master
-        run: echo "Container runs successfully"
