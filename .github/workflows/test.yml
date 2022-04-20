@@ -31,9 +31,9 @@ jobs:
     - name: Run image built
       uses: docker/build-push-action@v2
       with:
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.CONTAINER_NAME }}:${{ steps.prepare.outputs.tag }}
+          tags: rhodinemma/reacting:master
           push: false
     - uses: addnab/docker-run-action@v3
       with:
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.CONTAINER_NAME }}
+          image: rhodinemma/reacting:master
           run: echo "Container running successfully"
