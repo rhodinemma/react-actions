@@ -22,7 +22,7 @@ jobs:
       id: prepare
       uses: Surgo/docker-smart-tag-action@v1
       with:
-        docker_image: rhodinemma/reacting
+        docker_image: ${{ secrets.REPO_NAME }}
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
@@ -31,9 +31,9 @@ jobs:
     - name: Run image built
       uses: docker/build-push-action@v2
       with:
-          tags: rhodinemma/reacting:master
+          tags: ${{ secrets.REPO_NAME }}:${{ steps.prepare.outputs.tag }}
           push: false
     - uses: addnab/docker-run-action@v3
       with:
-          image: rhodinemma/reacting:master
-          run: echo "Hello Rhodin"
+          image: ${{ secrets.REPO_NAME }}:master
+          run: echo "Container runs successfully"
